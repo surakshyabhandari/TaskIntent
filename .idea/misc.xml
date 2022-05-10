@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/welcome/AndroidStudioProjects/TaskIntent/app/src/main/res/layout/activity_add.xml" value="0.22" />
         <entry key="..\:/Users/welcome/AndroidStudioProjects/TaskIntent/app/src/main/res/layout/activity_main.xml" value="0.10916919959473151" />
+        <entry key="..\:/Users/welcome/AndroidStudioProjects/TaskIntent/app/src/main/res/layout/activity_row.xml" value="0.33" />
+        <entry key="..\:/Users/welcome/AndroidStudioProjects/TaskIntent/app/src/main/res/layout/activity_task.xml" value="0.2" />
+        <entry key="..\:/Users/welcome/AndroidStudioProjects/TaskIntent/app/src/main/res/layout/main_menu.xml" value="0.15760869565217392" />
+        <entry key="..\:/Users/welcome/AndroidStudioProjects/TaskIntent/app/src/main/res/menu/main_menu.xml" value="0.1841880341880342" />
       </map>
     </option>
   </component>

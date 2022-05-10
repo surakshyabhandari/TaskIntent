@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">TaskIntent</string>
+    <string name="app_name">Task Intent</string>
+    <string name="taskTitle">Enter new task</string>
+    <string name="taskDescription">description</string>
+    <string name="status">status</string>
+    <string name="next">New task ^</string>
+    <string name="surakshya_bhandari_77227160">Surakshya Bhandari 77227160</string>
+    <string name="todo_app">Todo app</string>
+    <string name="todo">TODO</string>
+    <string name="enter_a_new_task">Enter a new task</string>
+    <string name="completed">Completed</string>
+    <string name="description">description</string>
+    <string name="add_task">Add Task</string>
+    <string name="new_task">New Task ^</string>
+
 </resources>
