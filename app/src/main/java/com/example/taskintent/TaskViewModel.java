@@ -11,14 +11,13 @@ public class TaskViewModel extends AndroidViewModel{
     private TaskRepository repo;
     private final LiveData<List<Task>> alltasks;
 
-    public TaskViewModel(@NonNull Application application, LiveData<List<Task>> alltaks) {
+    public TaskViewModel(@NonNull Application application) {
         super(application);
-        this.alltasks = alltaks;
         repo = new TaskRepository(application);
+        alltasks = repo.getAllTask();
     }
 
     LiveData<List<Task>> getAllNotes() {
-
         return alltasks;
     }
     public void insert(Task TaskToBeInserted) {

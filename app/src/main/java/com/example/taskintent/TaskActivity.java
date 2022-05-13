@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -34,9 +32,9 @@ import java.util.List;
 public class TaskActivity extends AppCompatActivity {
 
     private static TaskViewModel viewModel;
-    ImageButton addbtn;
+    ImageButton addBtn;
     ActivityResultLauncher<Intent> activityResultLauncher;
-    ImageView deletebtn;
+    ImageView deleteBtn;
     RowActivity adapter;
     static AlertDialog.Builder builder;
     boolean wantEdit = false;
@@ -46,14 +44,14 @@ public class TaskActivity extends AppCompatActivity {
 
         ActionBar actionBar;
         actionBar = getSupportActionBar();
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#f59547"));
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3EA3EF"));
         actionBar.setBackgroundDrawable(colorDrawable);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        addbtn = findViewById(R.id.addbtn);
-        deletebtn = findViewById(R.id.deleteicon);
+        addBtn = findViewById(R.id.addbtn);
+        deleteBtn = findViewById(R.id.deleteicon);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         builder = new AlertDialog.Builder(this);
 
@@ -77,30 +75,27 @@ public class TaskActivity extends AppCompatActivity {
             public void onActivityResult(ActivityResult result) {
                 if (!wantEdit) {
                     if (result.getResultCode() == RESULT_OK) {
-                        String nTitle = result.getData().getStringExtra(AddActivity.title);
-                        String nText = result.getData().getStringExtra(AddActivity.description);
-                        Task insertNote = new Task(nTitle, nText);
+                        String sTitle = result.getData().getStringExtra(AddActivity.Title);
+                        String sDescription = result.getData().getStringExtra(AddActivity.Description);
+                        Task insertNote = new Task(sTitle, sDescription);
                         viewModel.insert(insertNote);
-                        Toast.makeText(TaskActivity.this, "Note Created", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (result.getResultCode() == RESULT_CANCELED) {
-                    }
-                    else {
+                        Toast.makeText(TaskActivity.this, "Task Added", Toast.LENGTH_SHORT).show();
+                    } else if (result.getResultCode() == RESULT_CANCELED) {
+                    } else {
                         Toast.makeText(TaskActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else{
+                } else {
                     if (result.getResultCode() == RESULT_OK) {
-                        int id = result.getData().getIntExtra("NoteMeKey", -1);
+                        int id = result.getData().getIntExtra("Key", -1);
                         if (id == -1) {
                             Toast.makeText(TaskActivity.this, "Something went wrong while updating!", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        String nTitle = result.getData().getStringExtra(AddActivity.title);
-                        String nText = result.getData().getStringExtra(AddActivity.description);
-                        Task updateNote = new Task(nTitle, nText);
-                        updateNote.setId(id);
-                        viewModel.update(updateNote);
+                        String sTitle = result.getData().getStringExtra(AddActivity.Title);
+                        String sDescription = result.getData().getStringExtra(AddActivity.Description);
+                        Task Update = new Task(sTitle, sDescription);
+                        Update.setId(id);
+                        viewModel.update(Update);
                         Toast.makeText(TaskActivity.this, "Note Updated", Toast.LENGTH_SHORT).show();
                         wantEdit = false;
                     }
@@ -110,18 +105,18 @@ public class TaskActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new RowActivity.OnItemClickListener() {
             @Override
-            public void onItemClick(Task task) {
+            public void onItemClick(Task note) {
                 wantEdit = true;
                 Intent intent = new Intent(TaskActivity.this, AddActivity.class);
-                intent.putExtra("TaskId", task.getId());
-                intent.putExtra("TaskTitle", task.getTitle());
-                intent.putExtra("TaskDescription", task.getDescription());
-                intent.putExtra("TaskUpdate", "true");
+                intent.putExtra("Key", note.getId());
+                intent.putExtra("Title", note.getTitle());
+                intent.putExtra("Description", note.getDescription());
+                intent.putExtra("Update", "true");
                 activityResultLauncher.launch(intent);
             }
         });
 
-        addbtn.setOnClickListener(new View.OnClickListener() {
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent newIntent = new Intent(TaskActivity.this, AddActivity.class);
